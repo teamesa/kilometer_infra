@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kilometer-front
+  labels:
+    app: kilometer-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kilometer-front
+  template:
+    metadata:
+      labels:
+        app: kilometer-front
+    spec:
+      containers:
+        - name: kilometer-front
+          image: azxca1731dev/frontend:latest
+          env:
+            - name: JWT_SIGN
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: JWT_SIGN
+            - name: NEXT_PUBLIC_KAKAO_APP_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: NEXT_PUBLIC_KAKAO_APP_KEY
+            - name: BACK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: BACK_URL
+            - name: FRONT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: FRONT_URL
+            - name: NAVER_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: NAVER_SECRET_KEY
+            - name: NAVER_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: NAVER_CLIENT_ID
+            - name: NAVER_REDIRECT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: NAVER_REDIRECT_URI
+            - name: PORT
+              value: '8080'
+          ports:
+            - containerPort: 8080
+              name: km-front
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        - name: kilometer-back-nginx
+          image: azxca1731dev/kilometer-backend-nginx:0.1
+          ports:
+            - containerPort: 80
+              name: km-back

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kilometer-back
+  labels:
+    app: kilometer-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kilometer-back
+  template:
+    metadata:
+      labels:
+        app: kilometer-back
+    spec:
+      containers:
+        - name: kilometer-back
+          image: azxca1731dev/backend_web:latest
+          env:
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: JAVA_OPTS
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+        - name: kilometer-back-nginx
+          image: azxca1731dev/kilometer-backend-nginx:0.1
+          ports:
+            - containerPort: 80
+              name: km-back
