@@ -33,7 +33,7 @@ spec:
             successThreshold: 1
             timeoutSeconds: 1
         - name: kilometer-nginx
-          image: azxca1731dev/kilometer-nginx:0.1
+          image: azxca1731dev/kilometer-nginx:latest
           ports:
             - containerPort: 80
               name: km-back
