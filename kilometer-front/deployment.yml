@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kilometer-front
-          image: azxca1731dev/frontend:latest
+          image: azxca1731dev/frontend:138
           env:
             - name: JWT_SIGN
               valueFrom:
@@ -67,8 +67,8 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-        - name: kilometer-back-nginx
-          image: azxca1731dev/kilometer-backend-nginx:0.1
+        - name: kilometer-nginx
+          image: azxca1731dev/kilometer-nginx:latest
           ports:
             - containerPort: 80
               name: km-back

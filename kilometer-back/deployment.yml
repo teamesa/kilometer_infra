@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kilometer-back
-          image: azxca1731dev/backend_web:latest
+          image: azxca1731dev/backend_web:174
           env:
             - name: JAVA_OPTS
               valueFrom:
@@ -32,8 +32,8 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-        - name: kilometer-back-nginx
-          image: azxca1731dev/kilometer-backend-nginx:0.1
+        - name: kilometer-nginx
+          image: azxca1731dev/kilometer-nginx:latest
           ports:
             - containerPort: 80
               name: km-back
