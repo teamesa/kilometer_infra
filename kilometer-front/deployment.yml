@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kilometer-front
-          image: azxca1731dev/frontend:138
+          image: azxca1731dev/frontend:143
           env:
             - name: JWT_SIGN
               valueFrom:
