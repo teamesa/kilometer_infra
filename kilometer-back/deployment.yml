@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kilometer-back
-          image: azxca1731dev/backend_web:181
+          image: azxca1731dev/backend_web:182
           env:
             - name: JAVA_OPTS
               valueFrom:
